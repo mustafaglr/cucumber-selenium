@@ -30,10 +30,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class Stepdefiniton {
-	WebDriver driver;
-	Actions actions;
-	java.util.List<Map<String, String>> list;
-	WebDriverWait wait;
+    WebDriver driver;
+    Actions actions;
+    java.util.List<Map<String, String>> list;
+    WebDriverWait wait;
     JavascriptExecutor je;
     TakesScreenshot scrShot;
     File scrFile;
@@ -43,18 +43,18 @@ public class Stepdefiniton {
     String date;
     
     
-	@Given("^I navigate to login \"(.*)\" page$")
-	public void navigate_login_page(String page) throws Throwable{
-		
-		//get date
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
-		date = simpleDateFormat.format(new Date());
-		
-		//create file to save images
-		p = Runtime.getRuntime().exec("mkdir ./images");
-		p.waitFor();
-		p = Runtime.getRuntime().exec("mkdir ./images/"+date);
-		p.waitFor();
+    @Given("^I navigate to login \"(.*)\" page$")
+    public void navigate_login_page(String page) throws Throwable{
+	
+	//get date
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddhhmmss");
+	date = simpleDateFormat.format(new Date());
+	
+	//create file to save images
+	p = Runtime.getRuntime().exec("mkdir ./images");
+	p.waitFor();
+	p = Runtime.getRuntime().exec("mkdir ./images/"+date);
+	p.waitFor();
 		
         System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
@@ -64,42 +64,42 @@ public class Stepdefiniton {
         
 		driver.get(page);
 		
-	}
+    }
 	
 	
-	@When("^I submit username and password$")
-	public void login() throws Throwable{
-		driver.findElement(By.id("username")).sendKeys("crmop.user");
-		driver.findElement(By.id("password")).sendKeys("crmop");
-		take_screenshot();
-		driver.findElement(By.name("login")).click();
-	}
-	
-	@Then("^I should be logged in$")
-	public void check_login() throws Throwable{
-		
-	}
-	
-	
+    @When("^I submit username and password$")
+    public void login() throws Throwable{
+    	driver.findElement(By.id("username")).sendKeys("crmop.user");
+    	driver.findElement(By.id("password")).sendKeys("crmop");
+    	take_screenshot();
+    	driver.findElement(By.name("login")).click();
+    }
+    
+    @Then("^I should be logged in$")
+    public void check_login() throws Throwable{
+    	
+    }
 	
 	
-	@Given("^I navigate to \"(.*)\" page$")
-	public void navigate_page(String page){
+	
+	
+    @Given("^I navigate to \"(.*)\" page$")
+    public void navigate_page(String page){
 
-		try {
-			//Initialize
-			driver.get(page);
-			actions=new Actions(driver);
-			wait = new WebDriverWait(driver,10);
-			je = (JavascriptExecutor) driver;
-			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-		} catch (Exception e) {
-			throw new RuntimeException("Exception while filling " + page, e);
-		}
+    	try {
+    		//Initialize
+    		driver.get(page);
+    		actions=new Actions(driver);
+    		wait = new WebDriverWait(driver,10);
+    		je = (JavascriptExecutor) driver;
+    		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+    	} catch (Exception e) {
+		throw new RuntimeException("Exception while filling " + page, e);
+	}
 		
 		
 	}
-	
+
 	@When("^I fill textboxes$")
 	public void fill_textbox(Map<String, String> dataMap) throws Throwable {
 	    for (Map.Entry<String, String> item : dataMap.entrySet()) {
@@ -300,7 +300,7 @@ public class Stepdefiniton {
 	}	
 
 	
-	@And("^I take screenshots$")
+    @And("^I take screenshots$")
     public void take_screenshot() throws IOException {
     	
     	scrShot = ((TakesScreenshot)driver);
@@ -309,7 +309,7 @@ public class Stepdefiniton {
     	a++;
     }
 	
-	@And("^I wait for$")
+    @And("^I wait for$")
     public void wait_for(List<String> dataList) throws IOException {
 		wait = new WebDriverWait(driver,15);	
 	    for (String item : dataList) {
@@ -321,19 +321,19 @@ public class Stepdefiniton {
 	    }
     }
 	
-	@AfterTest
+    @AfterTest
     public void afterTest() throws InterruptedException{
         try {
         	
-    		Thread.sleep(5);
+    	    Thread.sleep(5);
             driver.quit();
-			p = Runtime.getRuntime().exec("cp -r ./target/cucumber/  ./images/"+date+"/");
-			p.waitFor();
-	        System.out.println("Done!");
+	    p = Runtime.getRuntime().exec("cp -r ./target/cucumber/  ./images/"+date+"/");
+	    p.waitFor();
+	    System.out.println("Done!");
 	        
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	} catch (IOException e) {
+    	    e.printStackTrace();
+	}
 		
     }
 }
