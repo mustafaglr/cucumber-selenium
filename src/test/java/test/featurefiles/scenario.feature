@@ -1,10 +1,10 @@
 @tag 
 Feature: Title of your feature
 
-	Background: User is logged in
-	  Given I navigate to login "http://somepage.com" page
-	  When I submit username and password
-	  Then I should be logged in  
+   Background: User is logged in
+    Given I navigate to login "http://somepage.com" page
+    When I submit username and password
+    Then I should be logged in  
 
   Scenario: Create Customer
     Given I navigate to "http://somepage.com/somepath" page
