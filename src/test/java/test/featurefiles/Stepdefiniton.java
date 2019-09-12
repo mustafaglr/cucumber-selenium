@@ -85,20 +85,18 @@ public class Stepdefiniton {
 	
     @Given("^I navigate to \"(.*)\" page$")
     public void navigate_page(String page){
-
-    	try {
-    		//Initialize
-    		driver.get(page);
-    		actions=new Actions(driver);
-    		wait = new WebDriverWait(driver,10);
-    		je = (JavascriptExecutor) driver;
-    		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-    	} catch (Exception e) {
+	    try {
+		//Initialize
+		driver.get(page);
+		actions=new Actions(driver);
+		wait = new WebDriverWait(driver,10);
+		je = (JavascriptExecutor) driver;
+		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+	    } catch (Exception e) {
 		throw new RuntimeException("Exception while filling " + page, e);
-	}
+	    }
 		
-		
-	}
+    }
 
 	@When("^I fill textboxes$")
 	public void fill_textbox(Map<String, String> dataMap) throws Throwable {
@@ -311,14 +309,14 @@ public class Stepdefiniton {
 	
     @And("^I wait for$")
     public void wait_for(List<String> dataList) throws IOException {
-		wait = new WebDriverWait(driver,15);	
-	    for (String item : dataList) {
-	        try {
-	        	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(item)));
-	        } catch (Exception e) {
-	            throw new RuntimeException("Exception while filling " + item, e);
-	        }
-	    }
+	wait = new WebDriverWait(driver,15);	
+        for (String item : dataList) {
+		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(item)));
+		} catch (Exception e) {
+			throw new RuntimeException("Exception while filling " + item, e);
+		}
+	}
     }
 	
     @AfterTest
